@@ -1,165 +1,123 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MilAccessApp());
+  runApp(MyApp());
 }
 
-class MilAccessApp extends StatelessWidget {
-  const MilAccessApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MilAccess',
-      theme: ThemeData(
-        primaryColor: const Color(0xFF4A7048), // Camouflage green
-        accentColor: const Color(0xFF6B705C), // Olive drab
-        textTheme: const TextTheme(
-          headlineSmall: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          bodyMedium: TextStyle(fontSize: 16, color: Colors.white),
-        ),
-      ),
-      home: const LoginScreen(),
-    );
+    return MaterialApp(home: SignupScreen());
   }
 }
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _useBiometric = false;
-  String? _errorMessage;
-
-  void _login() {
-    // Placeholder for authentication logic
-    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
-      setState(() {
-        _errorMessage = 'Please fill all fields';
-      });
-    } else {
-      // Simulate successful login
-      Navigator.pushReplacementNamed(context, '/home');
-    }
-  }
-
+class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF4A7048), // Camouflage green background
-      body: Center(
-        child: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFD9E6D9), // Light green background
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/background_pattern.png',
+            ), // Add a pattern asset if needed
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.05),
+              BlendMode.dstATop,
+            ),
+          ),
+        ),
+        child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // MilAccess Logo
-                const Icon(Icons.shield, size: 100, color: Color(0xFF6B705C)),
-                const SizedBox(height: 20),
-                // Username Field
-                TextField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF6B705C)),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
+                Icon(Icons.menu, color: Colors.green[700]),
+                SizedBox(height: 40),
+                Text(
+                  'Signup Form',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green[900],
                   ),
-                  style: const TextStyle(color: Colors.black),
                 ),
-                const SizedBox(height: 10),
-                // Password Field
+                SizedBox(height: 40),
                 TextField(
-                  controller: _passwordController,
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF6B705C)),
-                    ),
+                    labelText: 'Enter Username',
                     filled: true,
                     fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
+                ),
+                SizedBox(height: 16),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Enter User Type',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                TextField(
                   obscureText: true,
-                  style: const TextStyle(color: Colors.black),
-                ),
-                const SizedBox(height: 10),
-                // Error Message
-                if (_errorMessage != null)
-                  Text(
-                    _errorMessage!,
-                    style: const TextStyle(color: Color(0xFFFF6347)),
-                  ),
-                const SizedBox(height: 10),
-                // Login Button
-                ElevatedButton(
-                  onPressed: _login,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6B705C),
-                    minimumSize: const Size(200, 50),
-                  ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                // PIN/Biometric Toggle
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Use PIN/Biometric'),
-                    Switch(
-                      value: _useBiometric,
-                      onChanged: (value) =>
-                          setState(() => _useBiometric = value),
-                      activeColor: const Color(0xFF6B705C),
+                  decoration: InputDecoration(
+                    labelText: 'Enter Password',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
                     ),
-                  ],
-                ),
-                // Forgot Password Link
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Colors.grey),
                   ),
                 ),
-                // Encryption Indicator
-                const Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.lock, color: Color(0xFF6B705C), size: 20),
+                SizedBox(height: 16),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 40),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.green[900],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 50,
+                        vertical: 15,
+                      ),
+                    ),
+                    child: Text('Proceed'),
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-// Placeholder for Home Screen (to be implemented)
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('MilAccess Home')),
-      body: const Center(child: Text('Welcome to MilAccess!')),
     );
   }
 }
