@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'ammunition_report.dart';
 import 'report_type.dart';
 
 
@@ -50,7 +49,7 @@ class AdminDashboard extends StatelessWidget {
           children: [
             const SizedBox(height: 24),
             const Text(
-              'Welcome, Admin!',
+              'Welcome, AHQ!',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
