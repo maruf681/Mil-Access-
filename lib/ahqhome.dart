@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const AdminDashboardApp());
+  runApp(const AHQHome());
 }
 
-class AdminDashboardApp extends StatelessWidget {
-  const AdminDashboardApp({super.key});
+class AHQHome extends StatelessWidget {
+  const AHQHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,31 +86,6 @@ class AdminDashboard extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFFA8D5A2),
-        selectedItemColor: Colors.green[800],
-        unselectedItemColor: Colors.green[900],
-        iconSize: 34, // Uniform icon size
-        type: BottomNavigationBarType.fixed, // Ensures items are evenly spaced
-        items: const [
-          BottomNavigationBarItem(
-            icon: Center(child: Icon(Icons.home)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Center(child: Icon(Icons.import_contacts_rounded)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Center(child: Icon(Icons.add)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Center(child: Icon(Icons.person)),
-            label: '',
-          ),
-        ],
-      ),
     );
   }
 }
@@ -151,8 +126,6 @@ class DashboardCard extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                const Text('2 Days ago',
-                    style: TextStyle(color: Colors.grey, fontSize: 12)),
               ],
             ),
           ),
