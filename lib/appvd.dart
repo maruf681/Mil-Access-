@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(SignAppApproved());
-}
-
 class SignAppApproved extends StatelessWidget {
+  const SignAppApproved({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ApprovedScreen(),
+      home: const ApprovedScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class ApprovedScreen extends StatelessWidget {
+  const ApprovedScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,19 +22,14 @@ class ApprovedScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            // Menu Icon
-            Positioned(
-              top: 16,
-              left: 16,
-              child: Icon(Icons.menu, color: Colors.black87, size: 30),
-            ),
+            // Removed Menu Icon
 
             // Centered Content
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.check_box_outlined,
                     size: 120,
                     color: Color(0xFF1B5E20), // Dark green
@@ -76,7 +71,7 @@ class ApprovedScreen extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.25,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle login navigation
+                  Navigator.pushNamed(context, '/userlogin');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -102,3 +97,5 @@ class ApprovedScreen extends StatelessWidget {
     );
   }
 }
+
+
