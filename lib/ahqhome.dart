@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'ammunition_report.dart';
+import 'report_type.dart';
+
+
 
 void main() {
   runApp(const AHQHome());
@@ -42,15 +46,18 @@ class AdminDashboard extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center, // Center all horizontally
           children: [
+            const SizedBox(height: 24),
             const Text(
               'Welcome, Admin!',
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             // Search bar
             Container(
+              width: double.infinity, // Stretch to full width if needed
               padding: const EdgeInsets.symmetric(horizontal: 26),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -73,13 +80,25 @@ class AdminDashboard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(Icons.search, color: Colors.green),
+                  Icon(Icons.search, color: const Color(0xFF006400)),
                 ],
               ),
             ),
             const SizedBox(height: 24),
             // Cards
-            const DashboardCard(title: 'Report Generator'),
+            DashboardCard(
+              title: 'Report Generator',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ReportTypeSelectorPage(),
+                  ),
+                );
+              },
+            ),
+
+
             const DashboardCard(title: 'Upload Requests'),
             const DashboardCard(title: 'Pending Requests'),
             const DashboardCard(title: 'To-Do List'),
@@ -92,46 +111,52 @@ class AdminDashboard extends StatelessWidget {
 
 class DashboardCard extends StatelessWidget {
   final String title;
+  final VoidCallback? onTap;
 
-  const DashboardCard({super.key, required this.title});
+  const DashboardCard({Key? key, required this.title, this.onTap}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: Offset(1, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            backgroundColor: Colors.green,
-            child: Icon(Icons.calendar_today, color: Colors.white),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 4),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4,
+              offset: Offset(1, 3),
             ),
-          ),
-          const Icon(Icons.more_vert),
-        ],
+          ],
+        ),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              backgroundColor: const Color(0xFF006400),
+              child: Icon(Icons.calendar_today, color: Colors.white),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
+                ],
+              ),
+            ),
+            const Icon(Icons.more_vert),
+          ],
+        ),
       ),
     );
+
   }
 }
