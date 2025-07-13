@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome, Admin!'),
+        title: Text('Welcome, Unit Admin!'),
         backgroundColor: Colors.green[700],
         actions: [
           IconButton(
@@ -89,8 +89,8 @@ class HomeScreen extends StatelessWidget {
         children: [
           SearchBar(),
           SizedBox(height: 20),
-          MenuCard(title: 'Report Generator', subtitle: '2 Days ago'),
-          MenuCard(title: 'Document Upload Requests', subtitle: '2 Days ago'),
+          MenuCard(title: 'Report Generator', subtitle: ''),
+          MenuCard(title: 'Document Upload', subtitle: '2 Days ago'),
           MenuCard(title: 'Pending Requests', subtitle: '2 Days ago'),
           MenuCard(title: 'To-Do List', subtitle: '2 Days ago'),
         ],
@@ -201,7 +201,7 @@ class ProfileScreen extends StatelessWidget {
               Card(
                 child: ListTile(
                   leading: Icon(Icons.email),
-                  title: Text('ahq@army.mil.bd'),
+                  title: Text('1sigbn@army.mil.bd'),
                 ),
               ),
               Card(
@@ -214,7 +214,7 @@ class ProfileScreen extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(Icons.location_on),
                   title: Text(
-                      'Information Technology Directorate\nGeneral Staff Branch\nArmy Headquarters\nDhaka Cantonment, Dhaka – 1206'),
+                      'Jashore Cantonment, Jashore'),
                 ),
               ),
             ],
