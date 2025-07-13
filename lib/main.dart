@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'sign1.dart';
-import 'sign2_3_combined.dart';
-import 'signappv.dart';
-import 'appvd.dart';
-import 'userlogin.dart';
-import 'two_step.dart'; // Changed from 2step.dart
-import 'retainpass.dart';
-import 'passrecov.dart';
-import 'welcome.dart';
+import 'pages/dashboard_page.dart';
+import 'pages/pending_requests_page.dart';
+import 'pages/contact_info_page.dart';
+import 'pages/profile_page.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,20 +12,51 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const WelcomeScreen(), // Start with the new welcome screen
-      routes: {
-        '/signup': (context) => const SignupScreen(),
-        '/sign2_3_combined': (context) => const Sign23CombinedScreen(),
-        '/signappv': (context) => const ApprovalPage(),
-        '/appvd': (context) => const ApprovedScreen(),
-        '/userlogin': (context) => const UserLoginScreen(),
-        '/two_step': (context) =>
-            const TwoStepVerificationScreen(), // Changed from /2step
-        '/retainpass': (context) => const RetainPasswordScreen(),
-        '/passrecov': (context) => const PasswordRecoveryScreen(),
-      },
+      title: 'Army App',
+      theme: ThemeData(
+        primaryColor: Colors.lightBlue[100],
+        scaffoldBackgroundColor: Colors.lightBlue[100],
+        fontFamily: 'Roboto',
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    DashboardPage(),
+    PendingRequestPage(),
+    ContactInfoPage(),
+    ProfilePage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.green[100],
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.translate), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
+      ),
     );
   }
 }
