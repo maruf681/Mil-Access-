@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+  const SearchBarWidget({super.key, required String hintText});
 
   @override
   Widget build(BuildContext context) {

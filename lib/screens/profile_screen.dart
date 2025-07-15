@@ -5,6 +5,12 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var listTile = ListTile(
+                  leading: const Icon(Icons.phone),
+                  title: const Text('+880 1769 XXXXX'),
+                );
+    var listTile2 = listTile;
+    var listTile22 = listTile2;
     return Scaffold(
       appBar: AppBar(
         title: const Text('1 Signal Battalion'),
@@ -38,10 +44,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Card(
-                child: ListTile(
-                  leading: const Icon(Icons.phone),
-                  title: const Text('+880 1769 XXXXX'),
-                ),
+                child: listTile22,
               ),
               Card(
                 child: ListTile(
