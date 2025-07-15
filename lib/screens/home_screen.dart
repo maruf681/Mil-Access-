@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../widgets/search_bar_widget.dart'; // Renamed import
 import '../features/report_generator/report_generator_screen.dart'; // Updated import path
 import '../features/calendar/calendar_screen.dart'; // Import for CalendarScreen
-import '../features/document_upload/document_upload_screen.dart'; // New import for DocumentUploadScreen
+import '../features/document_upload/document_upload_screen.dart'; // Import for DocumentUploadScreen
+import '../features/requests_approved/requests_approved_screen.dart'; // New import for RequestsApprovedScreen
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -52,7 +53,7 @@ class HomeScreen extends StatelessWidget {
               ),
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0), // Added vertical padding
-                child: SearchBarWidget(), // Your existing search bar
+                child: SearchBarWidget(hintText: '',), // Your existing search bar
               ),
             ),
             const SizedBox(height: 20), // Space between top colored section and grid
@@ -101,10 +102,13 @@ class HomeScreen extends StatelessWidget {
                   ),
                   _buildGridItem(
                     context,
-                    icon: Icons.assignment, // Requests Approved
+                    icon: Icons.check_circle_outline, // Requests Approved icon
                     label: 'Requests Approved', // Changed label here
                     onTap: () {
-                      // Handle tap for Requests Approved
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RequestsApprovedScreen()),
+                      );
                     },
                   ),
                 ],
