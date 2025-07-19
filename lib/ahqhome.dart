@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'report_type.dart';
-
+import 'uploadrequests.dart';
+import 'documents.dart';
 
 
 void main() {
@@ -61,7 +62,7 @@ class AdminDashboard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 5,
@@ -69,8 +70,8 @@ class AdminDashboard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
@@ -79,7 +80,7 @@ class AdminDashboard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(Icons.search, color: const Color(0xFF006400)),
+                  Icon(Icons.search, color: Color(0xFF006400)),
                 ],
               ),
             ),
@@ -87,6 +88,7 @@ class AdminDashboard extends StatelessWidget {
             // Cards
             DashboardCard(
               title: 'Report Generator',
+              icon: Icons.assignment, // Custom icon
               onTap: () {
                 Navigator.push(
                   context,
@@ -96,11 +98,31 @@ class AdminDashboard extends StatelessWidget {
                 );
               },
             ),
-
-
-            const DashboardCard(title: 'Upload Requests'),
-            const DashboardCard(title: 'Pending Requests'),
-            const DashboardCard(title: 'To-Do List'),
+            DashboardCard(
+              title: 'Pending Upload Requests',
+              icon: Icons.cloud_upload, // Custom icon
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UploadRequests(),
+                  ),
+                );
+              },
+            ),
+            DashboardCard(
+              title: 'View Documents',
+              icon: Icons.article, // Custom icon
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DocumentsPage(),
+                  ),
+                );
+              },
+            ),
+            const DashboardCard(title: 'Training Calendar', icon: Icons.calendar_today),
           ],
         ),
       ),
@@ -111,9 +133,14 @@ class AdminDashboard extends StatelessWidget {
 class DashboardCard extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
+  final IconData icon;
 
-  const DashboardCard({Key? key, required this.title, this.onTap}) : super(key: key);
-
+  const DashboardCard({
+    Key? key,
+    required this.title,
+    this.onTap,
+    required this.icon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,20 +162,16 @@ class DashboardCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               backgroundColor: const Color(0xFF006400),
-              child: Icon(Icons.calendar_today, color: Colors.white),
+              child: Icon(icon, color: Colors.white),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 4),
-                ],
+              child: Text(
+                title,
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             const Icon(Icons.more_vert),
@@ -156,6 +179,6 @@ class DashboardCard extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
+
