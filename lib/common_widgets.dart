@@ -1,51 +1,23 @@
 import 'package:flutter/material.dart';
 
-class TopBar extends StatelessWidget {
-  final String title;
-
-  const TopBar({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(Icons.menu, size: 28),
-        Expanded(
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        Icon(Icons.notifications_none),
-      ],
-    );
-  }
-}
-
 class SearchBarWidget extends StatelessWidget {
+  const SearchBarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 16),
-      padding: EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                border: InputBorder.none,
-              ),
-            ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Search...',
+          prefixIcon: Icon(Icons.search),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide.none,
           ),
-          Icon(Icons.search, color: Colors.green),
-        ],
+          filled: true,
+          fillColor: Colors.white,
+        ),
       ),
     );
   }
@@ -53,35 +25,17 @@ class SearchBarWidget extends StatelessWidget {
 
 class CustomCard extends StatelessWidget {
   final String title;
-
-  const CustomCard({required this.title});
+  const CustomCard({required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      elevation: 4,
       child: ListTile(
-        leading: Icon(Icons.assignment, color: Colors.green),
         title: Text(title),
-        subtitle: Text("2 Days ago"),
-        trailing: Icon(Icons.more_vert),
+        trailing: Icon(Icons.arrow_forward_ios),
       ),
-    );
-  }
-}
-
-class InfoRow extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const InfoRow({required this.icon, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.green),
-      title: Text(text),
     );
   }
 }
