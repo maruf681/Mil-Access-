@@ -19,7 +19,7 @@ class ContactInfoPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           SearchBarWidget(),
-          ...contacts.map((contact) => CustomCard(title: contact)).toList(),
+          ...contacts.map((contact) => CustomCard(title: contact)),
         ],
       ),
     );
