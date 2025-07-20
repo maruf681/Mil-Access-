@@ -19,7 +19,7 @@ class PendingRequestPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           SearchBarWidget(),
-          ...requests.map((req) => CustomCard(title: req)).toList(),
+          ...requests.map((req) => CustomCard(title: req)),
         ],
       ),
     );
