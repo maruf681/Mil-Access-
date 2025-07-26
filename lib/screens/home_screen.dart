@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import '../widgets/search_bar_widget.dart'; // Renamed import
-import '../features/report_generator/report_generator_screen.dart'; // Updated import path
+import '../widgets/search_bar_widget.dart';
 import '../features/calendar/calendar_screen.dart'; // Import for CalendarScreen
 import '../features/document_upload/document_upload_screen.dart'; // Import for DocumentUploadScreen
-import '../features/requests_approved/requests_approved_screen.dart'; // New import for RequestsApprovedScreen
+import '../features/pending_leave_requests/pending_leave_requests_screen.dart'; // Import for PendingLeaveRequestsScreen
+import '../features/incident_report/incident_report_screen.dart'; // Import for IncidentReportScreen
+import '../features/to_do_list/to_do_list_screen.dart'; // Import for ToDoListScreen
+import '../features/quick_notes/quick_notes_screen.dart'; // New import for QuickNotesScreen
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -69,19 +71,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   _buildGridItem(
                     context,
-                    icon: Icons.description, // Report Generator
-                    label: 'Report Generator',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ReportGeneratorScreen()),
-                      );
-                    },
-                  ),
-                  _buildGridItem(
-                    context,
-                    icon: Icons.upload_file, // Document Upload Requests
-                    label: 'Document Upload Requests',
+                    icon: Icons.upload_file,
+                    label: 'Upload Document',
                     onTap: () {
                       Navigator.push(
                         context,
@@ -91,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   _buildGridItem(
                     context,
-                    icon: Icons.calendar_today, // Events Calendar
+                    icon: Icons.calendar_today,
                     label: 'Events Calendar',
                     onTap: () {
                       Navigator.push(
@@ -102,12 +93,45 @@ class HomeScreen extends StatelessWidget {
                   ),
                   _buildGridItem(
                     context,
-                    icon: Icons.check_circle_outline, // Requests Approved icon
-                    label: 'Requests Approved', // Changed label here
+                    icon: Icons.assignment, // Icon for Pending Leave Requests
+                    label: 'Pending Leave Requests',
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RequestsApprovedScreen()),
+                        MaterialPageRoute(builder: (context) => const PendingLeaveRequestsScreen()),
+                      );
+                    },
+                  ),
+                  _buildGridItem(
+                    context,
+                    icon: Icons.warning_amber, // Icon for Incident Report
+                    label: 'Incident Report',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const IncidentReportScreen()),
+                      );
+                    },
+                  ),
+                  _buildGridItem(
+                    context,
+                    icon: Icons.checklist, // Icon for To Do List
+                    label: 'To Do List',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ToDoListScreen()),
+                      );
+                    },
+                  ),
+                  _buildGridItem(
+                    context,
+                    icon: Icons.note_add, // Icon for Quick Notes
+                    label: 'Quick Notes',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const QuickNotesScreen()),
                       );
                     },
                   ),

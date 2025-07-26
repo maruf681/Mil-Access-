@@ -288,7 +288,7 @@ class _ContactDirectoryScreenState extends State<ContactDirectoryScreen> {
               },
             ),
           );
-        }).toList(),
+        }),
       ],
     );
   }

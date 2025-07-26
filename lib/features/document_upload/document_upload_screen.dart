@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class DocumentItem {
   final String title;
   String status; // 'pending', 'forwarded', 'rejected'
+  bool isExpanded; // New property to control expansion
 
-  DocumentItem({required this.title, this.status = 'pending'});
+  DocumentItem({required this.title, this.status = 'pending', this.isExpanded = false});
 }
 
 // Define a class for document categories
@@ -86,6 +87,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   void _forwardDocument(DocumentItem document) {
     setState(() {
       document.status = 'forwarded';
+      document.isExpanded = false; // Collapse after action
     });
     _showMessageBox(context, 'Document Forwarded', '${document.title} has been forwarded.');
   }
@@ -93,8 +95,28 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   void _rejectDocument(DocumentItem document) {
     setState(() {
       document.status = 'rejected';
+      document.isExpanded = false; // Collapse after action
     });
     _showMessageBox(context, 'Document Rejected', '${document.title} has been rejected.');
+  }
+
+  void _toggleDocumentExpansion(DocumentItem document) {
+    setState(() {
+      // Collapse other expanded documents in the same category
+      for (var category in _documentCategories) {
+        for (var doc in category.documents) {
+          if (doc != document) {
+            doc.isExpanded = false;
+          }
+        }
+      }
+      document.isExpanded = !document.isExpanded;
+    });
+  }
+
+  void _viewDocument(DocumentItem document) {
+    // Simulate PDF viewing
+    _showMessageBox(context, 'View Document', 'Simulating PDF view for: ${document.title}\n(In a real app, a PDF viewer would open here)');
   }
 
   void _showMessageBox(BuildContext context, String title, String message) {
@@ -145,7 +167,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Document Upload Requests'),
+        title: const Text('Upload Document'), // Changed title here
         backgroundColor: Colors.green[700],
       ),
       body: ListView.builder(
@@ -179,32 +201,82 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                     itemCount: category.documents.length,
                     itemBuilder: (context, documentIndex) {
                       final document = category.documents[documentIndex];
-                      return ListTile(
-                        leading: Icon(_getStatusIcon(document.status), color: _getStatusColor(document.status)),
-                        title: Text(
-                          document.title,
-                          style: TextStyle(
-                            decoration: document.status == 'rejected' ? TextDecoration.lineThrough : TextDecoration.none,
-                            color: document.status == 'rejected' ? Colors.grey : Colors.black,
+                      return Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(_getStatusIcon(document.status), color: _getStatusColor(document.status)),
+                            title: Text(
+                              document.title,
+                              style: TextStyle(
+                                decoration: document.status == 'rejected' ? TextDecoration.lineThrough : TextDecoration.none,
+                                color: document.status == 'rejected' ? Colors.grey : Colors.black,
+                              ),
+                            ),
+                            trailing: document.isExpanded
+                                ? Icon(Icons.keyboard_arrow_up, color: Colors.grey[700])
+                                : Icon(Icons.keyboard_arrow_down, color: Colors.grey[700]),
+                            onTap: () => _toggleDocumentExpansion(document),
                           ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.check_circle, color: document.status == 'forwarded' ? Colors.green : Colors.grey),
-                              onPressed: document.status == 'pending'
-                                  ? () => _forwardDocument(document)
-                                  : null, // Disable if already acted upon
+                          // Expanded section with buttons
+                          if (document.isExpanded)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton.icon(
+                                      onPressed: document.status == 'pending'
+                                          ? () => _forwardDocument(document)
+                                          : null,
+                                      icon: const Icon(Icons.check, color: Colors.white),
+                                      label: const Text('Upload', style: TextStyle(color: Colors.white)),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: document.status == 'forwarded' ? Colors.grey : Colors.green,
+                                        padding: const EdgeInsets.symmetric(vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: ElevatedButton.icon(
+                                      onPressed: document.status == 'pending'
+                                          ? () => _rejectDocument(document)
+                                          : null,
+                                      icon: const Icon(Icons.close, color: Colors.white),
+                                      label: const Text('Reject', style: TextStyle(color: Colors.white)),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: document.status == 'rejected' ? Colors.grey : Colors.red,
+                                        padding: const EdgeInsets.symmetric(vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: ElevatedButton.icon(
+                                      onPressed: () => _viewDocument(document),
+                                      icon: const Icon(Icons.visibility, color: Colors.white),
+                                      label: const Text('View', style: TextStyle(color: Colors.white)),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blueGrey,
+                                        padding: const EdgeInsets.symmetric(vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            IconButton(
-                              icon: Icon(Icons.cancel, color: document.status == 'rejected' ? Colors.red : Colors.grey),
-                              onPressed: document.status == 'pending'
-                                  ? () => _rejectDocument(document)
-                                  : null, // Disable if already acted upon
-                            ),
-                          ],
-                        ),
+                          const Divider(height: 1, thickness: 0.5), // Separator between documents
+                        ],
                       );
                     },
                   ),
