@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:milbot/features/task_management/task_management.dart';
 import '../widgets/search_bar_widget.dart';
 import '../features/calendar/calendar_screen.dart'; // Import for CalendarScreen
 import '../features/document_upload/document_upload_screen.dart'; // Import for DocumentUploadScreen
 import '../features/pending_leave_requests/pending_leave_requests_screen.dart'; // Import for PendingLeaveRequestsScreen
 import '../features/incident_report/incident_report_screen.dart'; // Import for IncidentReportScreen
-import '../features/to_do_list/to_do_list_screen.dart'; // Import for ToDoListScreen
+import '../features/task_management/task_management.dart'; // Import for ToDoListScreen
 import '../features/quick_notes/quick_notes_screen.dart'; // New import for QuickNotesScreen
 
 class HomeScreen extends StatelessWidget {
@@ -116,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                   _buildGridItem(
                     context,
                     icon: Icons.checklist, // Icon for To Do List
-                    label: 'To Do List',
+                    label: 'Task Management',
                     onTap: () {
                       Navigator.push(
                         context,
