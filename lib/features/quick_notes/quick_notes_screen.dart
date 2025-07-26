@@ -34,7 +34,14 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
   final List<Note> _notesList = [];
   bool _isGridView = true; // Default to grid view like your home screen
   String _selectedCategory = 'All';
-  final List<String> _categories = ['All', 'Operations', 'Personnel', 'Training', 'Logistics', 'Command'];
+  final List<String> _categories = [
+    'All',
+    'Operations',
+    'Personnel',
+    'Training',
+    'Logistics',
+    'Command'
+  ];
   final List<Color> _noteColors = [
     Colors.white,
     const Color(0xFFFFF9C4), // Light yellow
@@ -55,7 +62,8 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
       Note(
         id: '1',
         title: 'Daily Brief - Unit Status',
-        content: 'Personnel Strength: 245/250\nVehicle Readiness: 92%\nTraining Schedule: Combat Readiness Exercise 0800\nSecurity Status: FPCON Bravo\nWeather Impact: Training continues as planned',
+        content:
+            'Personnel Strength: 245/250\nVehicle Readiness: 92%\nTraining Schedule: Combat Readiness Exercise 0800\nSecurity Status: FPCON Bravo\nWeather Impact: Training continues as planned',
         createdAt: DateTime.now().subtract(const Duration(days: 1)),
         modifiedAt: DateTime.now().subtract(const Duration(hours: 2)),
         color: const Color(0xFFFFF9C4),
@@ -65,7 +73,8 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
       Note(
         id: '2',
         title: 'Personnel Deployment Orders',
-        content: 'Alpha Company - Forward Operating Base deployment\nBravo Company - Base security detail\nCharlie Company - Training rotation\nDelta Company - Equipment maintenance\n\nDeployment Date: 15 Aug 2024\nDuration: 6 months',
+        content:
+            'Alpha Company - Forward Operating Base deployment\nBravo Company - Base security detail\nCharlie Company - Training rotation\nDelta Company - Equipment maintenance\n\nDeployment Date: 15 Aug 2024\nDuration: 6 months',
         createdAt: DateTime.now().subtract(const Duration(days: 3)),
         modifiedAt: DateTime.now().subtract(const Duration(days: 1)),
         color: const Color(0xFFE1F5FE),
@@ -75,7 +84,8 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
       Note(
         id: '3',
         title: 'Equipment Inspection Report',
-        content: 'M4 Rifles: 98% serviceable\nBody Armor: All units inspected and certified\nCommunication Equipment: 2 radios require maintenance\nVehicles: 3 HMMWVs scheduled for service\n\nNext Inspection: 30 July 2024',
+        content:
+            'M4 Rifles: 98% serviceable\nBody Armor: All units inspected and certified\nCommunication Equipment: 2 radios require maintenance\nVehicles: 3 HMMWVs scheduled for service\n\nNext Inspection: 30 July 2024',
         createdAt: DateTime.now().subtract(const Duration(days: 2)),
         modifiedAt: DateTime.now().subtract(const Duration(hours: 6)),
         color: const Color(0xFFE8F5E8),
@@ -84,7 +94,8 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
       Note(
         id: '4',
         title: 'Training Exercise Debrief',
-        content: 'Operation Desert Storm Simulation\n\nStrengths:\n- Excellent communication\n- Quick response time\n- Good tactical positioning\n\nAreas for Improvement:\n- Supply chain coordination\n- Night vision operations\n\nNext Training: Live Fire Exercise',
+        content:
+            'Operation Desert Storm Simulation\n\nStrengths:\n- Excellent communication\n- Quick response time\n- Good tactical positioning\n\nAreas for Improvement:\n- Supply chain coordination\n- Night vision operations\n\nNext Training: Live Fire Exercise',
         createdAt: DateTime.now().subtract(const Duration(days: 4)),
         modifiedAt: DateTime.now().subtract(const Duration(days: 2)),
         color: const Color(0xFFFCE4EC),
@@ -93,7 +104,8 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
       Note(
         id: '5',
         title: 'Command Priorities',
-        content: 'Week 30 Focus Areas:\n\n1. Enhance unit readiness to 95%\n2. Complete NCO professional development\n3. Finalize deployment preparations\n4. Conduct safety briefings\n5. Review and update SOPs\n\nCommander\'s Intent: Mission Ready Force',
+        content:
+            'Week 30 Focus Areas:\n\n1. Enhance unit readiness to 95%\n2. Complete NCO professional development\n3. Finalize deployment preparations\n4. Conduct safety briefings\n5. Review and update SOPs\n\nCommander\'s Intent: Mission Ready Force',
         createdAt: DateTime.now().subtract(const Duration(hours: 8)),
         modifiedAt: DateTime.now().subtract(const Duration(hours: 1)),
         color: const Color(0xFFFFF3E0),
@@ -103,7 +115,8 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
       Note(
         id: '6',
         title: 'Awards & Recognition',
-        content: 'Soldier of the Month: SGT Johnson, A.\nUnit Citation: Meritorious Service during Exercise\nCommendations Pending:\n- CPL Martinez (Leadership)\n- SPC Davis (Technical Excellence)\n\nCeremony Date: 5 August 2024',
+        content:
+            'Soldier of the Month: SGT Johnson, A.\nUnit Citation: Meritorious Service during Exercise\nCommendations Pending:\n- CPL Martinez (Leadership)\n- SPC Davis (Technical Excellence)\n\nCeremony Date: 5 August 2024',
         createdAt: DateTime.now().subtract(const Duration(days: 6)),
         modifiedAt: DateTime.now().subtract(const Duration(days: 4)),
         color: const Color(0xFFE8F5E8),
@@ -119,15 +132,17 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
         builder: (context) => NoteEditorScreen(
           onSave: (title, content, color, category) {
             setState(() {
-              _notesList.insert(0, Note(
-                id: DateTime.now().millisecondsSinceEpoch.toString(),
-                title: title.isEmpty ? 'Untitled' : title,
-                content: content,
-                createdAt: DateTime.now(),
-                modifiedAt: DateTime.now(),
-                color: color,
-                category: category,
-              ));
+              _notesList.insert(
+                  0,
+                  Note(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    title: title.isEmpty ? 'Untitled' : title,
+                    content: content,
+                    createdAt: DateTime.now(),
+                    modifiedAt: DateTime.now(),
+                    color: color,
+                    category: category,
+                  ));
             });
           },
         ),
@@ -186,24 +201,24 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
   }
 
   List<Note> get _filteredNotes {
-    List<Note> filtered = _selectedCategory == 'All' 
-        ? _notesList 
+    List<Note> filtered = _selectedCategory == 'All'
+        ? _notesList
         : _notesList.where((note) => note.category == _selectedCategory).toList();
-    
+
     // Sort: pinned first, then by modified date
     filtered.sort((a, b) {
       if (a.isPinned && !b.isPinned) return -1;
       if (!a.isPinned && b.isPinned) return 1;
       return b.modifiedAt.compareTo(a.modifiedAt);
     });
-    
+
     return filtered;
   }
 
   String _formatDate(DateTime date) {
     final now = DateTime.now();
     final difference = now.difference(date).inDays;
-    
+
     if (difference == 0) {
       return 'Today';
     } else if (difference == 1) {
@@ -545,8 +560,14 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   late Color _selectedColor;
   late String _selectedCategory;
   bool _hasChanges = false;
-  
-  final List<String> _categories = ['Operations', 'Personnel', 'Training', 'Logistics', 'Command'];
+
+  final List<String> _categories = [
+    'Operations',
+    'Personnel',
+    'Training',
+    'Logistics',
+    'Command'
+  ];
   final List<Color> _noteColors = [
     Colors.white,
     const Color(0xFFFFF9C4), // Light yellow
@@ -563,7 +584,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     _contentController = TextEditingController(text: widget.note?.content ?? '');
     _selectedColor = widget.note?.color ?? Colors.white;
     _selectedCategory = widget.note?.category ?? 'Operations';
-    
+
     // Listen for changes
     _titleController.addListener(_onTextChanged);
     _contentController.addListener(_onTextChanged);
@@ -585,12 +606,17 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   }
 
   void _saveNote() {
-    widget.onSave(
-      _titleController.text.trim(),
-      _contentController.text.trim(),
-      _selectedColor,
-      _selectedCategory,
-    );
+    // Only save if there's content or title, or if it's an existing note being modified
+    if (_titleController.text.trim().isNotEmpty ||
+        _contentController.text.trim().isNotEmpty ||
+        widget.note != null) {
+      widget.onSave(
+        _titleController.text.trim(),
+        _contentController.text.trim(),
+        _selectedColor,
+        _selectedCategory,
+      );
+    }
     Navigator.pop(context);
   }
 
@@ -662,8 +688,9 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   }
 
   Future<bool> _onWillPop() async {
-    if (_hasChanges || 
-        _titleController.text.trim().isNotEmpty || 
+    // Automatically save if there are changes or content/title is not empty
+    if (_hasChanges ||
+        _titleController.text.trim().isNotEmpty ||
         _contentController.text.trim().isNotEmpty) {
       _saveNote();
     }
@@ -684,6 +711,12 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             onPressed: () => Navigator.pop(context),
           ),
           actions: [
+            // Save button
+            if (_hasChanges || widget.note == null) // Show save for new notes or notes with changes
+              IconButton(
+                icon: const Icon(Icons.save, color: Colors.black87),
+                onPressed: _saveNote,
+              ),
             IconButton(
               icon: const Icon(Icons.palette, color: Colors.black87),
               onPressed: _showColorPicker,
@@ -760,8 +793,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   ),
                   const Spacer(),
                   Text(
-                    widget.note != null 
-                        ? 'Modified ${DateTime.now().day}/${DateTime.now().month}' 
+                    widget.note != null
+                        ? 'Modified ${DateTime.now().day}/${DateTime.now().month}'
                         : 'New note',
                     style: const TextStyle(
                       fontSize: 12,
