@@ -18,8 +18,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   // Map to store events, where key is date and value is a list of events for that date
   final Map<DateTime, List<Event>> _events = {
     // Example events
-    DateTime.utc(2025, 7, 15): [Event('Team Meeting'), Event('Project Deadline')],
-    DateTime.utc(2025, 7, 17): [Event('Training Session')],
+    DateTime.utc(2025, 7, 15): [const Event('Team Meeting'), const Event('Project Deadline')],
+    DateTime.utc(2025, 7, 17): [const Event('Training Session')],
   };
 
   // Controllers for adding new events

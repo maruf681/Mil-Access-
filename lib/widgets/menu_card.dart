@@ -10,10 +10,10 @@ class MenuCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(Icons.assignment, color: Colors.green),
+        leading: const Icon(Icons.assignment, color: Colors.green),
         title: Text(title),
         subtitle: Text(subtitle),
-        trailing: Icon(Icons.more_vert),
+        trailing: const Icon(Icons.more_vert),
       ),
     );
   }

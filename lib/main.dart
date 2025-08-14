@@ -1,162 +1,52 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'pages/dashboard_page.dart';
-import 'pages/pending_requests_page.dart';
-import 'pages/contact_info_page.dart';
-import 'pages/profile_page.dart';
+import 'package:flutter_application_1/authPages/appvd.dart';
+import 'package:flutter_application_1/authPages/check_email.dart';
+import 'package:flutter_application_1/authPages/login_page.dart';
+import 'package:flutter_application_1/authPages/passrecov1.dart';
+import 'package:flutter_application_1/authPages/passrecov2.dart';
+import 'package:flutter_application_1/authPages/rejected.dart';
+import 'package:flutter_application_1/authPages/retainpass.dart';
+import 'package:flutter_application_1/authPages/signappv.dart';
+import 'package:flutter_application_1/authPages/signup1.dart';
+import 'package:flutter_application_1/authPages/splash_page.dart';
+import 'package:flutter_application_1/authPages/welcome.dart';
+import 'package:flutter_application_1/routeControllers/adminRoutes.dart';
+import 'package:flutter_application_1/routeControllers/ahqRoutes.dart';
+import 'package:flutter_application_1/routeControllers/userRoutes.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Army App',
-      theme: ThemeData(
-        primaryColor: Colors.lightBlue[100],
-        scaffoldBackgroundColor: Colors.lightBlue[100],
-        fontFamily: 'Roboto',
-      ),
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  HomeScreenState createState() => HomeScreenState();
-}
-
-class HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    DashboardPage(),
-    PendingRequestPage(),
-    ContactInfoPage(),
-    ProfilePage(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.green[100],
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.translate), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
-    );
-  }
-}
-
-import 'package:flutter/material.dart';
-import 'pages/dashboard_page.dart';
-import 'pages/pending_requests_page.dart';
-import 'pages/contact_info_page.dart';
-import 'pages/profile_page.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Army App',
-      theme: ThemeData(
-        primaryColor: Colors.green,
-        scaffoldBackgroundColor: Colors.green[100],
-        fontFamily: 'Roboto',
-      ),
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  HomeScreenState createState() => HomeScreenState();
-}
-
-class HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    DashboardPage(),
-    PendingRequestPage(),
-    ContactInfoPage(),
-    ProfilePage(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: Offset(0, -5),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) => setState(() => _currentIndex = index),
-            selectedItemColor: Colors.green,
-            unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.white,
-            type: BottomNavigationBarType.fixed,
-            elevation: 0,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.contacts),
-                label: 'Contacts',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.pending_actions),
-                label: 'Pending',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.flash_on),
-                label: 'Chat',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'My Flutter App',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashPage(),
+        '/welcome': (context) => const WelcomeScreen(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignupScreen(),
+        '/signappv': (context) => const ApprovalPage(),
+        '/appvd': (context) => const ApprovedScreen(),
+        '/rejected': (context) => const RejectedScreen(),
+        '/retainPass': (context) => const RetainPasswordScreen(),
+        // '/passrecov1': (context) => const VerifyCodeScreen(),
+        // '/passrecov2': (context) => const PasswordRecoveryScreen(),
+        '/checkEmail': (context) => const CheckEmailScreen(),
+        '/ahqroutes': (context) => const Ahqroutes(),
+        '/adminroutes': (context) => const Adminroutes(),
+        '/userroutes': (context) => const Userroutes(),
+      },
+      theme: ThemeData.light(),
     );
   }
 }

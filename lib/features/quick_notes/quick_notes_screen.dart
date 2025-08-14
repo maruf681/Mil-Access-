@@ -224,7 +224,7 @@ class _QuickNotesScreenState extends State<QuickNotesScreen> {
     } else if (difference == 1) {
       return 'Yesterday';
     } else if (difference < 7) {
-      return '${difference} days ago';
+      return '$difference days ago';
     } else {
       return '${date.day}/${date.month}/${date.year}';
     }

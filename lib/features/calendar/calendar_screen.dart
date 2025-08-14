@@ -18,8 +18,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
   // Map to store events, where key is date and value is a list of events for that date
   final Map<DateTime, List<Event>> _events = {
     // Example events
-    DateTime.utc(2025, 7, 15): [Event('Team Meeting'), Event('Project Deadline')],
-    DateTime.utc(2025, 7, 17): [Event('Training Session')],
+    DateTime.utc(2025, 7, 15): [
+      const Event('Team Meeting'),
+      const Event('Project Deadline'),
+    ],
+    DateTime.utc(2025, 7, 17): [const Event('Training Session')],
   };
 
   // Controllers for adding new events
@@ -66,7 +69,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
     }
 
     final newEvent = Event(_eventTitleController.text);
-    final eventDate = DateTime.utc(_selectedEventDate.year, _selectedEventDate.month, _selectedEventDate.day);
+    final eventDate = DateTime.utc(
+      _selectedEventDate.year,
+      _selectedEventDate.month,
+      _selectedEventDate.day,
+    );
 
     setState(() {
       if (_events[eventDate] != null) {
@@ -88,16 +95,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
         _events.remove(eventDate); // Remove the date entry if no events left
       }
     });
-    _showMessageBox(context, 'Deleted', 'Event "${eventToDelete.title}" deleted.');
+    _showMessageBox(
+      context,
+      'Deleted',
+      'Event "${eventToDelete.title}" deleted.',
+    );
   }
 
-  void _confirmDeleteEvent(BuildContext context, DateTime date, Event eventToDelete) {
+  void _confirmDeleteEvent(
+    BuildContext context,
+    DateTime date,
+    Event eventToDelete,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirm Deletion'),
-          content: Text('Are you sure you want to delete "${eventToDelete.title}"?'),
+          content: Text(
+            'Are you sure you want to delete "${eventToDelete.title}"?',
+          ),
           actions: <Widget>[
             TextButton(
               child: const Text('Cancel'),
@@ -143,7 +160,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Events Calendar'),
-        backgroundColor: Colors.green[700],
+        backgroundColor: const Color(0xFFA8D5A2),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -198,8 +215,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
-                  leftChevronIcon: Icon(Icons.chevron_left, color: Colors.green[700]),
-                  rightChevronIcon: Icon(Icons.chevron_right, color: Colors.green[700]),
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: Colors.green[700],
+                  ),
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.green[700],
+                  ),
                 ),
               ),
             ),
@@ -211,22 +234,35 @@ class _CalendarScreenState extends State<CalendarScreen> {
               ),
             ),
             // Display events for the selected day with delete option
-            ..._getEventsForDay(_selectedDay ?? _focusedDay).map((event) => Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+            ..._getEventsForDay(_selectedDay ?? _focusedDay).map(
+              (event) => Card(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 4.0,
+                ),
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: ListTile(
+                  leading: Icon(Icons.event, color: Colors.green[700]),
+                  title: Text(event.title),
+                  subtitle: Text(
+                    DateFormat(
+                      'yyyy-MM-dd',
+                    ).format(_selectedDay ?? _focusedDay),
                   ),
-                  child: ListTile(
-                    leading: Icon(Icons.event, color: Colors.green[700]),
-                    title: Text(event.title),
-                    subtitle: Text(DateFormat('yyyy-MM-dd').format(_selectedDay ?? _focusedDay)),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _confirmDeleteEvent(context, _selectedDay ?? _focusedDay, event),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () => _confirmDeleteEvent(
+                      context,
+                      _selectedDay ?? _focusedDay,
+                      event,
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -259,7 +295,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.calendar_today, color: Colors.green),
+                        icon: const Icon(
+                          Icons.calendar_today,
+                          color: Colors.green,
+                        ),
                         onPressed: () => _selectDate(context),
                       ),
                     ],
@@ -275,10 +314,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                       elevation: 5,
                     ),
-                    child: const Text(
-                      'Add Event',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
+                    child: const Icon(Icons.event, color: Colors.white),
                   ),
                 ],
               ),
@@ -297,4 +333,3 @@ class Event {
   @override
   String toString() => title;
 }
-
